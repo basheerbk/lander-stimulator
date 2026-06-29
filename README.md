@@ -1,4 +1,4 @@
-# iLab Moon — Moon Day Simulation
+#Moon Day Simulation
 
 An interactive **lunar landing simulation** for **Moon Day** celebrations at iLab. Experience a powered descent under real lunar gravity (**g = 1.62 m/s²**), rendered in WebGL via Three.js.
 
