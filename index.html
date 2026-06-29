@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLab Moon — Moon Day Simulation</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="mount"></div>
+
+  <div class="hud">
+    <div class="hud-top">
+      <h1>iLab Moon</h1>
+      <span class="subtitle">Moon Day Celebration · Lunar Landing Simulation · g = 1.62 m/s²</span>
+    </div>
+    <div class="hud-stats">
+      <div class="stat"><label>Gear Alt</label><span id="alt">—</span> m</div>
+      <div class="stat"><label>V-Speed</label><span id="vspeed">—</span> m/s</div>
+      <div class="stat"><label>H-Speed</label><span id="hspeed">—</span> m/s</div>
+      <div class="stat"><label>Angle</label><span id="angle">—</span>°</div>
+      <div class="stat fuel-stat"><label>Fuel</label><span id="fuel">—</span>%</div>
+      <div class="stat"><label>Throttle</label><span id="throttle">—</span>%</div>
+    </div>
+    <div class="hud-msg" id="message"></div>
+  </div>
+
+  <div class="assist-panel" id="assist-panel">
+    <div class="assist-header">
+      <span class="assist-title">Flight Systems</span>
+      <span class="assist-mode guided" id="assist-mode">GUIDED</span>
+    </div>
+    <label class="assist-toggle">
+      <input type="checkbox" id="assist-stab" checked />
+      <span class="assist-switch"></span>
+      <span class="assist-label">
+        <strong>Attitude Stabilizer</strong>
+        <small>Auto-level when not rotating</small>
+      </span>
+    </label>
+    <label class="assist-toggle">
+      <input type="checkbox" id="assist-guid" checked />
+      <span class="assist-switch"></span>
+      <span class="assist-label">
+        <strong>Auto Guidance</strong>
+        <small>Dampens sideways drift</small>
+      </span>
+    </label>
+    <label class="assist-toggle">
+      <input type="checkbox" id="assist-desc" checked />
+      <span class="assist-switch"></span>
+      <span class="assist-label">
+        <strong>Descent Control</strong>
+        <small>Auto-throttle for safe sink rate</small>
+      </span>
+    </label>
+    <div class="assist-presets">
+      <button type="button" id="assist-preset-train">Guided Demo</button>
+      <button type="button" id="assist-preset-sim">Full Simulation</button>
+    </div>
+    <p class="assist-hint">Full simulation = Apollo-era manual flight · no automation</p>
+  </div>
+
+  <div class="map-panel">
+    <canvas id="landing-map"></canvas>
+  </div>
+
+  <div class="controller-panel" id="controller-panel">
+    <div class="controller-header">
+      <span class="controller-dot offline" id="controller-dot"></span>
+      <span class="controller-title">Mission Console</span>
+      <span class="input-source" id="input-source">KEYBOARD</span>
+    </div>
+    <div class="controller-row">
+      <input type="text" id="controller-ip" placeholder="ESP IP e.g. 192.168.1.42" spellcheck="false" />
+      <button type="button" id="controller-connect">Connect</button>
+    </div>
+    <p class="controller-status" id="controller-status">Enter ESP32 IP · same WiFi network</p>
+  </div>
+
+  <div class="controls-hint">
+    <kbd>↑</kbd><kbd>W</kbd> Thrust &nbsp;
+    <kbd>←</kbd><kbd>→</kbd> Rotate &nbsp;
+    <span style="color:#7a9ab4">· or DIY ESP console</span>
+  </div>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <h2 id="overlay-title"></h2>
+      <p id="overlay-body"></p>
+      <p id="overlay-summary" class="overlay-summary"></p>
+      <button id="restart-btn">Run Another Descent</button>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
